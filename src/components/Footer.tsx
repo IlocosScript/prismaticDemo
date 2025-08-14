@@ -10,17 +10,56 @@ export default function Footer() {
     email: '',
     message: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [submitMessage, setSubmitMessage] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    // Clear status when user starts typing again
+    if (submitStatus !== 'idle') {
+      setSubmitStatus('idle');
+      setSubmitMessage('');
+    }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
-    // Reset form
-    setFormData({ name: '', phone: '', email: '', message: '' });
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+    setSubmitMessage('');
+
+    try {
+      // Replace with your actual domain when deployed
+      const phpUrl = 'https://ilocosscript.com/contact-form-secure.php'; // CHANGE THIS TO YOUR DOMAIN
+
+      const response = await fetch(phpUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setSubmitStatus('success');
+        setSubmitMessage(data.message);
+        // Reset form
+        setFormData({ name: '', phone: '', email: '', message: '' });
+      } else {
+        setSubmitStatus('error');
+        console.log(data.message);
+        setSubmitMessage(data.message || 'Failed to send message. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setSubmitStatus('error');
+      setSubmitMessage('Network error. Please check your connection and try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const partnerLogos = [
@@ -116,11 +155,48 @@ export default function Footer() {
                 
                 <button
                   type="submit"
-                  className="w-full bg-amber-500 text-white px-8 py-4 rounded-lg hover:bg-amber-600 transition-colors font-medium flex items-center justify-center group"
+                  disabled={isSubmitting}
+                  className={`w-full px-8 py-4 rounded-lg transition-colors font-medium flex items-center justify-center group ${
+                    isSubmitting 
+                      ? 'bg-stone-400 cursor-not-allowed' 
+                      : 'bg-amber-500 hover:bg-amber-600 text-white'
+                  }`}
                 >
-                  Send Message
-                  <Send className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                  {isSubmitting ? (
+                    <>
+                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      Send Message
+                      <Send className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                    </>
+                  )}
                 </button>
+
+                {/* Status Messages */}
+                {submitStatus === 'success' && (
+                  <div className="mt-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
+                    <div className="flex items-center">
+                      <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                      {submitMessage}
+                    </div>
+                  </div>
+                )}
+
+                {submitStatus === 'error' && (
+                  <div className="mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+                    <div className="flex items-center">
+                      <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                      </svg>
+                      {submitMessage}
+                    </div>
+                  </div>
+                )}
               </form>
             </div>
             
@@ -236,7 +312,7 @@ export default function Footer() {
           
           <div className="mt-8 pt-8 border-t border-stone-700 text-center">
             <p className="text-stone-400">
-              © 2024 The Prismatic Nomad. All rights reserved. | Delivering excellence across sectors and brands since 2018.
+              © 2025 The Prismatic Nomad. All rights reserved. | Delivering excellence across sectors and brands since 2018.
             </p>
           </div>
         </div>
