@@ -8,7 +8,7 @@ export default function About() {
           {/* Icon */}
           <div className="flex justify-center mb-8">
             <img 
-              src="/IMG_7675 (1) - Edited.png" 
+              src="/002c95a3-5b00-4fe9-8fb4-d9f743e9ea2e.png" 
               alt="The Prismatic Nomad Logo" 
               className="w-16 h-16 object-contain"
             />

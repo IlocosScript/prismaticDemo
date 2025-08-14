@@ -187,7 +187,7 @@ export default function Footer() {
             {/* Logo and Company Info */}
             <div className="flex items-center space-x-4">
               <img 
-                src="/IMG_7675 (1) - Edited.png" 
+                src="/002c95a3-5b00-4fe9-8fb4-d9f743e9ea2e.png" 
                 alt="The Prismatic Nomad Logo" 
                 className="w-12 h-12 object-contain"
               />
