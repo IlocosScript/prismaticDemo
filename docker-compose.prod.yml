@@ -29,7 +29,6 @@ services:
       - "80:80"
     volumes:
       - ./nginx-reverse-proxy.conf:/etc/nginx/nginx.conf:ro
-      - ./ssl:/etc/nginx/ssl:ro
     depends_on:
       - prismatic-app
     restart: unless-stopped
