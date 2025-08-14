@@ -45,8 +45,12 @@ export default function Partners() {
           {partners.map((partner, index) => (
             <div key={index} className="bg-gradient-to-br from-stone-50 to-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-stone-100 group">
               {/* Logo */}
-              <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 ${partner.color} font-bold text-2xl group-hover:scale-110 transition-transform`}>
-                {partner.logo}
+              <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 bg-white border-2 border-stone-200 group-hover:scale-110 transition-transform overflow-hidden">
+                <img 
+                  src="/002c95a3-5b00-4fe9-8fb4-d9f743e9ea2e.png" 
+                  alt="The Prismatic Nomad Logo" 
+                  className="w-12 h-12 object-contain"
+                />
               </div>
               
               {/* Company Name */}

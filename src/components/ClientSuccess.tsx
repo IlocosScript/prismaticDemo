@@ -2,7 +2,16 @@ import { ArrowRight } from 'lucide-react';
 
 export default function ClientSuccess() {
   return (
-    <section className="py-20 bg-white">
+    <section className="py-20 bg-white relative">
+      {/* Logo watermark */}
+      <div className="absolute top-10 right-10 opacity-5">
+        <img 
+          src="/002c95a3-5b00-4fe9-8fb4-d9f743e9ea2e.png" 
+          alt="The Prismatic Nomad Logo" 
+          className="w-32 h-32 object-contain"
+        />
+      </div>
+      
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
