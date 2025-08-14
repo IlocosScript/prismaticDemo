@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Mail, MapPin, Clock, Send, Phone } from 'lucide-react';
+import Image from 'next/image';
 
 export default function Footer() {
   const [formData, setFormData] = useState({
@@ -63,10 +64,10 @@ export default function Footer() {
   };
 
   const partnerLogos = [
-    { name: "Femnux", logo: "F", color: "bg-purple-100 text-purple-800" },
-    { name: "AccountTech", logo: "AT", color: "bg-green-100 text-green-800" },
-    { name: "ROAS", logo: "R", color: "bg-blue-100 text-blue-800" },
-    { name: "Servcorp", logo: "SC", color: "bg-amber-100 text-amber-800" }
+    { name: "Femnux", logo: "F", color: "bg-purple-100 text-purple-800", image: "/femeux.png" },
+    { name: "AccountTech", logo: "AT", color: "bg-green-100 text-green-800", image: "/accountTech.png" },
+    { name: "ROAS", logo: "R", color: "bg-blue-100 text-blue-800", image: "/roas.png" },
+    { name: "Servcorp", logo: "SC", color: "bg-amber-100 text-amber-800", image: "/servcorp.png" }
   ];
 
   return (
@@ -262,10 +263,12 @@ export default function Footer() {
           <div className="grid md:grid-cols-2 gap-8 items-center">
             {/* Logo and Company Info */}
             <div className="flex items-center space-x-4">
-              <img 
+              <Image 
                 src="/002c95a3-5b00-4fe9-8fb4-d9f743e9ea2e.png" 
                 alt="The Prismatic Nomad Logo" 
-                className="w-12 h-12 object-contain"
+                width={48}
+                height={48}
+                className="object-contain"
               />
               <div>
                 <h3 className="text-xl font-bold text-white">The Prismatic Nomad</h3>
@@ -278,33 +281,13 @@ export default function Footer() {
               <p className="text-stone-400 text-sm mr-4">Trusted by:</p>
               {partnerLogos.map((partner, index) => (
                 <div key={index} className={`w-10 h-10 rounded-lg flex items-center justify-center text-sm font-bold ${partner.color}`}>
-                  {partner.name === "Femnux" ? (
-                    <img 
-                      src="/femeux.png" 
-                      alt="Femeux Logo" 
-                      className="w-8 h-8 object-contain"
-                    />
-                  ) : partner.name === "AccountTech" ? (
-                    <img 
-                      src="/accountTech.png" 
-                      alt="AccountTech Logo" 
-                      className="w-8 h-8 object-contain"
-                    />
-                  ) : partner.name === "ROAS" ? (
-                    <img 
-                      src="/roas.png" 
-                      alt="ROAS Logo" 
-                      className="w-8 h-8 object-contain"
-                    />
-                  ) : partner.name === "Servcorp" ? (
-                    <img 
-                      src="/servcorp.png" 
-                      alt="Servcorp Logo" 
-                      className="w-8 h-8 object-contain"
-                    />
-                  ) : (
-                    partner.logo
-                  )}
+                  <Image 
+                    src={partner.image}
+                    alt={`${partner.name} Logo`}
+                    width={32}
+                    height={32}
+                    className="object-contain"
+                  />
                 </div>
               ))}
             </div>
