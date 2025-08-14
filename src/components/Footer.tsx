@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Hexagon, Mail, MapPin, Clock, Send, Phone } from 'lucide-react';
+import { Mail, MapPin, Clock, Send, Phone } from 'lucide-react';
 
 export default function Footer() {
   const [formData, setFormData] = useState({

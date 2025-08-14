@@ -1,4 +1,4 @@
-import { Hexagon, Calendar, Globe, TrendingUp } from 'lucide-react';
+import { Calendar, Globe, TrendingUp } from 'lucide-react';
 
 export default function About() {
   return (
