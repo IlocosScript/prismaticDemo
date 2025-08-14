@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  prismatic-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: prismatic-nomad-app
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - prismatic-network
+    # Expose port internally only - nginx reverse proxy will handle external access
+    expose:
+      - "80"
+
+  nginx:
+    image: nginx:alpine
+    container_name: prismatic-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx-reverse-proxy.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - prismatic-app
+    restart: unless-stopped
+    networks:
+      - prismatic-network
+
+networks:
+  prismatic-network:
+    driver: bridge
