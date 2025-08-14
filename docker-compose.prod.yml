@@ -11,7 +11,7 @@ services:
     environment:
       - NODE_ENV=production
     healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/health"]
+      test: ["CMD", "nginx", "-t"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -33,11 +33,14 @@ services:
     depends_on:
       - prismatic-app
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "nginx", "-t"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
     networks:
       - prismatic-network
-    # Only start nginx if the config file exists
-    profiles:
-      - nginx
 
 networks:
   prismatic-network:
