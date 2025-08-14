@@ -27,7 +27,6 @@ services:
     container_name: prismatic-nginx
     ports:
       - "80:80"
-      - "443:443"
     volumes:
       - ./nginx-reverse-proxy.conf:/etc/nginx/nginx.conf:ro
       - ./ssl:/etc/nginx/ssl:ro
