@@ -204,7 +204,7 @@ export default function Footer() {
                 <div key={index} className={`w-10 h-10 rounded-lg flex items-center justify-center text-sm font-bold ${partner.color}`}>
                   {partner.name === "Femnux" ? (
                     <img 
-                      src="/femux.png" 
+                      src="/femeux.png" 
                       alt="Femnux Logo" 
                       className="w-8 h-8 object-contain"
                     />
