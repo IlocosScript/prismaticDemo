@@ -64,13 +64,6 @@ export default function Testimonials() {
               
               {/* Client Info */}
               <div className="flex items-center">
-                <div className="w-12 h-12 rounded-full overflow-hidden mr-4">
-                  <img 
-                    src={testimonial.image}
-                    alt={testimonial.name}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
                 <div>
                   <h4 className="font-bold text-stone-800 group-hover:text-blue-900 transition-colors">
                     {testimonial.name}
