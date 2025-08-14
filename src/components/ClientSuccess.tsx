@@ -6,7 +6,7 @@ export default function ClientSuccess() {
       {/* Logo watermark */}
       <div className="absolute top-10 right-10 opacity-5">
         <img 
-          src="/002c95a3-5b00-4fe9-8fb4-d9f743e9ea2e.png" 
+          src="/IMG_7675 (1) - Edited.png" 
           alt="The Prismatic Nomad Logo" 
           className="w-32 h-32 object-contain"
         />

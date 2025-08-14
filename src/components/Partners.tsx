@@ -47,7 +47,7 @@ export default function Partners() {
               {/* Logo */}
               <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 bg-white border-2 border-stone-200 group-hover:scale-110 transition-transform overflow-hidden">
                 <img 
-                  src="/002c95a3-5b00-4fe9-8fb4-d9f743e9ea2e.png" 
+                  src="/IMG_7675 (1) - Edited.png" 
                   alt="The Prismatic Nomad Logo" 
                   className="w-12 h-12 object-contain"
                 />
