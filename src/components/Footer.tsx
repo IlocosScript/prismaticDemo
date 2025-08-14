@@ -202,7 +202,15 @@ export default function Footer() {
               <p className="text-stone-400 text-sm mr-4">Trusted by:</p>
               {partnerLogos.map((partner, index) => (
                 <div key={index} className={`w-10 h-10 rounded-lg flex items-center justify-center text-sm font-bold ${partner.color}`}>
-                  {partner.logo}
+                  {partner.name === "Femnux" ? (
+                    <img 
+                      src="/femux.png" 
+                      alt="Femnux Logo" 
+                      className="w-8 h-8 object-contain"
+                    />
+                  ) : (
+                    partner.logo
+                  )}
                 </div>
               ))}
             </div>
