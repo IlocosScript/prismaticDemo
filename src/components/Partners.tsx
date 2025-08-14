@@ -48,7 +48,7 @@ export default function Partners() {
               <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 bg-white border-2 border-stone-200 group-hover:scale-110 transition-transform overflow-hidden">
                 {partner.name === "Femnux" ? (
                   <img 
-                    src="/femux.png" 
+                    src="/femeux.png" 
                     alt="Femnux Logo" 
                     className="w-12 h-12 object-contain"
                   />
