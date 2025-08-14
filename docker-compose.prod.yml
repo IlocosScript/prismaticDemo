@@ -36,6 +36,9 @@ services:
     restart: unless-stopped
     networks:
       - prismatic-network
+    # Only start nginx if the config file exists
+    profiles:
+      - nginx
 
 networks:
   prismatic-network:
