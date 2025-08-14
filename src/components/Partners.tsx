@@ -1,7 +1,7 @@
 export default function Partners() {
   const partners = [
     {
-      name: "Femnux",
+      name: "Femeux",
       logo: "F",
       testimonial: "Their strategic insights helped us scale our operations efficiently and increase our market presence significantly.",
       color: "bg-purple-100 text-purple-800"
