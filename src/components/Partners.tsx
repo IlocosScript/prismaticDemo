@@ -52,6 +52,24 @@ export default function Partners() {
                     alt="Femnux Logo" 
                     className="w-12 h-12 object-contain"
                   />
+                ) : partner.name === "AccountTech" ? (
+                  <img 
+                    src="/accountTech.png" 
+                    alt="AccountTech Logo" 
+                    className="w-12 h-12 object-contain"
+                  />
+                ) : partner.name === "ROAS" ? (
+                  <img 
+                    src="/roas.png" 
+                    alt="ROAS Logo" 
+                    className="w-12 h-12 object-contain"
+                  />
+                ) : partner.name === "Servcorp" ? (
+                  <img 
+                    src="/servcorp.png" 
+                    alt="Servcorp Logo" 
+                    className="w-12 h-12 object-contain"
+                  />
                 ) : (
                   <img 
                     src="/002c95a3-5b00-4fe9-8fb4-d9f743e9ea2e.png" 
