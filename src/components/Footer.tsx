@@ -205,7 +205,7 @@ export default function Footer() {
                   {partner.name === "Femnux" ? (
                     <img 
                       src="/femeux.png" 
-                      alt="Femnux Logo" 
+                      alt="Femeux Logo" 
                       className="w-8 h-8 object-contain"
                     />
                   ) : partner.name === "AccountTech" ? (
