@@ -8,7 +8,8 @@ When deploying to a remote server, ensure these files are uploaded:
 ```
 prismaticDemo/
 ├── docker-compose.prod.yml          # Production compose file
-├── Dockerfile                       # Multi-stage build
+├── Dockerfile                       # Multi-stage build for React app
+├── Dockerfile.nginx                 # Nginx reverse proxy build
 ├── nginx-reverse-proxy.conf         # Nginx reverse proxy config
 ├── nginx.conf                       # Nginx config for React app
 ├── package.json                     # Node.js dependencies
@@ -62,7 +63,8 @@ docker logs prismatic-nomad-app
 ### **Missing nginx-reverse-proxy.conf**
 If you get the error "cannot create subdirectories in /etc/nginx/nginx.conf", ensure:
 - `nginx-reverse-proxy.conf` file is uploaded to the server
-- File has correct permissions
+- `Dockerfile.nginx` is uploaded to the server
+- Both files have correct permissions
 
 ### **Missing SSL Directory**
 If you need SSL later, create the directory:
@@ -115,6 +117,7 @@ When ready for HTTPS:
 
 - [ ] All source files uploaded
 - [ ] `nginx-reverse-proxy.conf` uploaded
+- [ ] `Dockerfile.nginx` uploaded
 - [ ] `docker-compose.prod.yml` uploaded
 - [ ] `Dockerfile` uploaded
 - [ ] Run `docker compose -f docker-compose.prod.yml up -d`

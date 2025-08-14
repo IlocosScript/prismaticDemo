@@ -23,12 +23,12 @@ services:
       - "80"
 
   nginx:
-    image: nginx:alpine
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
     container_name: prismatic-nginx
     ports:
       - "80:80"
-    volumes:
-      - ./nginx-reverse-proxy.conf:/etc/nginx/nginx.conf:ro
     depends_on:
       - prismatic-app
     restart: unless-stopped
