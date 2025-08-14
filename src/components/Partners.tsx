@@ -46,7 +46,7 @@ export default function Partners() {
             <div key={index} className="bg-gradient-to-br from-stone-50 to-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-stone-100 group">
               {/* Logo */}
               <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 bg-white border-2 border-stone-200 group-hover:scale-110 transition-transform overflow-hidden">
-                {partner.name === "Femnux" ? (
+                {partner.name === "Femeux" ? (
                   <img 
                     src="/femeux.png" 
                     alt="Femnux Logo" 
