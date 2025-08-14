@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
+import Image from 'next/image';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -14,10 +15,12 @@ export default function Header() {
           <div className="flex justify-between items-center py-4">
             {/* Logo */}
             <div className="flex items-center space-x-3">
-              <img 
+              <Image 
                 src="/002c95a3-5b00-4fe9-8fb4-d9f743e9ea2e.png" 
                 alt="The Prismatic Nomad Logo" 
-                className="w-8 h-8 object-contain"
+                width={32}
+                height={32}
+                className="object-contain"
               />
               <span className="text-xl font-bold text-blue-900">The Prismatic Nomad</span>
             </div>

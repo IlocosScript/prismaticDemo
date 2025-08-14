@@ -1,6 +1,6 @@
 # Docker Deployment Guide
 
-This guide explains how to deploy the Prismatic Nomad application using Docker.
+This guide explains how to deploy the Prismatic Nomad Next.js application using Docker.
 
 ## Quick Start
 
@@ -8,31 +8,28 @@ This guide explains how to deploy the Prismatic Nomad application using Docker.
 
 1. **Build and run the application:**
    ```bash
-   docker-compose up -d
+   docker compose up -d
    ```
 
 2. **Access the application:**
-   - Open your browser and navigate to `http://localhost`
+   - Open your browser and navigate to `http://localhost:3000`
 
 3. **Stop the application:**
    ```bash
-   docker-compose down
+   docker compose down
    ```
 
 ### Production Deployment
 
-For production deployment with reverse proxy and SSL support:
+For production deployment with optimized settings:
 
-1. **Create SSL directory (optional):**
+1. **Deploy with production configuration:**
    ```bash
-   mkdir ssl
-   # Place your SSL certificates in this directory
+   docker compose -f docker-compose.prod.yml up -d
    ```
 
-2. **Deploy with production configuration:**
-   ```bash
-   docker-compose -f docker-compose.prod.yml up -d
-   ```
+2. **Access the application:**
+   - Open your browser and navigate to `http://localhost:3000`
 
 ## Docker Commands
 
@@ -43,18 +40,18 @@ docker build -t prismatic-nomad .
 
 ### Run the container manually:
 ```bash
-docker run -p 80:80 prismatic-nomad
+docker run -p 3000:3000 prismatic-nomad
 ```
 
 ### View logs:
 ```bash
-docker-compose logs -f
+docker compose logs -f
 ```
 
 ### Rebuild and restart:
 ```bash
-docker-compose down
-docker-compose up --build -d
+docker compose down
+docker compose up --build -d
 ```
 
 ## Configuration
@@ -66,23 +63,21 @@ The application uses the following environment variables:
 
 ### Port Configuration
 
-- **Default**: Port 80
+- **Default**: Port 3000
 - **Custom**: Modify the `ports` section in `docker-compose.yml`
 
 ### Health Checks
 
 The application includes health checks that monitor:
-- Application availability at `/health` endpoint
+- Application availability at `/api/health` endpoint
 - Automatic restart on failure
 
 ## File Structure
 
 ```
-├── Dockerfile                 # Multi-stage build configuration
+├── Dockerfile                 # Multi-stage build configuration for Next.js
 ├── docker-compose.yml         # Basic deployment configuration
-├── docker-compose.prod.yml    # Production deployment with reverse proxy
-├── nginx.conf                 # Nginx configuration for the app container
-├── nginx-reverse-proxy.conf   # Nginx reverse proxy configuration (for prod)
+├── docker-compose.prod.yml    # Production deployment configuration
 ├── .dockerignore             # Files to exclude from Docker build
 └── DOCKER_DEPLOYMENT.md      # This file
 ```
@@ -93,42 +88,63 @@ The application includes health checks that monitor:
 
 1. **Port already in use:**
    ```bash
-   # Check what's using port 80
-   sudo lsof -i :80
+   # Check what's using port 3000
+   sudo lsof -i :3000
    # Or change the port in docker-compose.yml
    ```
 
 2. **Build fails:**
    ```bash
    # Clean up and rebuild
-   docker-compose down
+   docker compose down
    docker system prune -f
-   docker-compose up --build
+   docker compose up --build
    ```
 
 3. **Container won't start:**
    ```bash
    # Check logs
-   docker-compose logs prismatic-app
+   docker compose logs prismatic-app
    ```
 
 ### Performance Optimization
 
 - The Dockerfile uses multi-stage builds to minimize image size
-- Nginx configuration includes gzip compression and caching
-- Static assets are cached for 1 year
+- Next.js includes built-in optimization and caching
+- Static assets are automatically optimized
 - Health checks ensure application availability
 
 ## Security Considerations
 
-- Security headers are configured in nginx
-- Content Security Policy is enabled
-- XSS protection is active
-- Frame options are set to prevent clickjacking
+- Next.js includes built-in security features
+- Content Security Policy can be configured in `next.config.js`
+- XSS protection is active by default
+- Frame options can be set in headers
 
 ## Monitoring
 
 The application includes:
-- Health check endpoint at `/health`
-- Nginx access and error logs
+- Health check endpoint at `/api/health`
+- Next.js application logs
 - Container health monitoring
+
+## API Endpoints
+
+- **Health Check**: `GET /api/health`
+- **Main Application**: `GET /`
+
+## Deployment Options
+
+### Option 1: Basic Deployment
+```bash
+docker compose up -d
+# Access at: http://localhost:3000
+```
+
+### Option 2: Production Deployment
+```bash
+docker compose -f docker-compose.prod.yml up -d
+# Access at: http://localhost:3000
+```
+
+Both options deploy the same Next.js application - the production version includes additional environment variables and health checks.

@@ -1,4 +1,4 @@
-# Production Deployment Guide
+# Next.js Production Deployment Guide
 
 ## 📁 Required Files for Deployment
 
@@ -8,27 +8,18 @@ When deploying to a remote server, ensure these files are uploaded:
 ```
 prismaticDemo/
 ├── docker-compose.prod.yml          # Production compose file
-├── Dockerfile                       # Multi-stage build for React app
-├── Dockerfile.nginx                 # Nginx reverse proxy build
-├── nginx-reverse-proxy.conf         # Nginx reverse proxy config
-├── nginx.conf                       # Nginx config for React app
-├── package.json                     # Node.js dependencies
+├── docker-compose.yml               # Basic compose file
+├── Dockerfile                       # Multi-stage build for Next.js
+├── package.json                     # Next.js dependencies
 ├── package-lock.json                # Locked dependencies
-├── vite.config.ts                   # Vite configuration
+├── next.config.js                   # Next.js configuration
 ├── tsconfig.json                    # TypeScript config
 ├── tailwind.config.js               # Tailwind CSS config
 ├── postcss.config.js                # PostCSS config
-├── index.html                       # Entry HTML file
-├── src/                             # React source code
+├── src/                             # Next.js source code
+│   ├── app/                         # App Router
+│   └── components/                  # React components
 └── public/                          # Static assets
-```
-
-### **Optional Files (for SSL):**
-```
-prismaticDemo/
-└── ssl/                             # SSL certificates (when ready)
-    ├── cert.pem
-    └── key.pem
 ```
 
 ## 🚀 Deployment Commands
@@ -44,8 +35,11 @@ scp -r . user@your-server:/path/to/deployment/
 # Navigate to deployment directory
 cd /path/to/deployment/
 
-# Start production deployment
+# Start production deployment (Next.js only)
 docker compose -f docker-compose.prod.yml up -d
+
+# Or use basic deployment
+docker compose up -d
 ```
 
 ### **3. Check Deployment Status**
@@ -54,30 +48,33 @@ docker compose -f docker-compose.prod.yml up -d
 docker ps
 
 # Check logs
-docker logs prismatic-nginx
 docker logs prismatic-nomad-app
 ```
 
 ## 🔧 Troubleshooting
 
-### **Missing nginx-reverse-proxy.conf**
-If you get the error "cannot create subdirectories in /etc/nginx/nginx.conf", ensure:
-- `nginx-reverse-proxy.conf` file is uploaded to the server
-- `Dockerfile.nginx` is uploaded to the server
-- Both files have correct permissions
-
-### **Missing SSL Directory**
-If you need SSL later, create the directory:
+### **Port Already in Use**
+If you get the error "port is already allocated", stop existing containers:
 ```bash
-mkdir -p ssl
-# Then add your SSL certificates
+# Stop all containers
+docker compose down
+docker stop $(docker ps -q)
+
+# Then deploy again
+docker compose -f docker-compose.prod.yml up -d
 ```
+
+### **Build Issues**
+If the build fails, check:
+- All source files are uploaded
+- `package.json` and `package-lock.json` are present
+- `Dockerfile` is uploaded
 
 ## 🌐 Access Your Application
 
 After successful deployment:
-- **URL:** http://your-server-ip
-- **Health Check:** http://your-server-ip/health
+- **URL:** http://your-server-ip:3000
+- **Health Check:** http://your-server-ip:3000/api/health
 
 ## 📊 Monitoring
 
@@ -88,11 +85,11 @@ docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
 
 ### **View Logs:**
 ```bash
-# Nginx proxy logs
-docker logs prismatic-nginx
-
-# React app logs
+# Next.js app logs
 docker logs prismatic-nomad-app
+
+# Follow logs in real-time
+docker logs -f prismatic-nomad-app
 ```
 
 ### **Restart Services:**
@@ -101,25 +98,31 @@ docker logs prismatic-nomad-app
 docker compose -f docker-compose.prod.yml restart
 
 # Restart specific service
-docker compose -f docker-compose.prod.yml restart nginx
+docker compose -f docker-compose.prod.yml restart prismatic-app
 ```
-
-## 🔒 SSL Setup (Future)
-
-When ready for HTTPS:
-
-1. **Add SSL certificates to `ssl/` directory**
-2. **Uncomment SSL section in `nginx-reverse-proxy.conf`**
-3. **Add SSL volume back to `docker-compose.prod.yml`**
-4. **Restart services**
 
 ## 🎯 Quick Deploy Checklist
 
 - [ ] All source files uploaded
-- [ ] `nginx-reverse-proxy.conf` uploaded
-- [ ] `Dockerfile.nginx` uploaded
 - [ ] `docker-compose.prod.yml` uploaded
 - [ ] `Dockerfile` uploaded
+- [ ] `package.json` and `package-lock.json` uploaded
 - [ ] Run `docker compose -f docker-compose.prod.yml up -d`
-- [ ] Verify containers are running: `docker ps`
-- [ ] Test application: `curl http://localhost/health`
+- [ ] Verify container is running: `docker ps`
+- [ ] Test application: `curl http://localhost:3000/api/health`
+
+## 🚀 Deployment Options
+
+### **Option 1: Basic Deployment**
+```bash
+docker compose up -d
+# Access at: http://your-server-ip:3000
+```
+
+### **Option 2: Production Deployment**
+```bash
+docker compose -f docker-compose.prod.yml up -d
+# Access at: http://your-server-ip:3000
+```
+
+Both options deploy the same Next.js application - the production version just has additional environment variables and health checks.
