@@ -32,8 +32,8 @@ RUN npm ci --only=production
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
 
-# Expose port 3000
+# Expose port 9010
 EXPOSE 9010
 
-# Start the application
-CMD ["npm", "start"]
+# Start the application on port 9010
+CMD ["npm", "start", "--", "-p", "9010"]
