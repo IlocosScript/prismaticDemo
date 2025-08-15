@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import Image from 'next/image';
 
@@ -8,9 +8,9 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="relative bg-gradient-to-br from-stone-100 to-stone-50 min-h-screen">
+    <React.Fragment>
       {/* Navigation */}
-      <nav className="relative z-20 bg-white/90 backdrop-blur-sm border-b border-stone-200">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-stone-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             {/* Logo */}
@@ -58,50 +58,52 @@ export default function Header() {
         )}
       </nav>
 
-      {/* Hero Section */}
-      <div className="relative flex items-center min-h-screen">
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
-          style={{
-            backgroundImage: `url('https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')`
-          }}
-        />
-        
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <div className="max-w-3xl">
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6">
-              <span className="gradient-text">Top-notch</span>
-              <br />
-              <span className="text-stone-800">business services</span>
-            </h1>
-            
-            <h2 className="text-xl md:text-2xl text-amber-600 font-semibold mb-6">
-              Your Partner in Growth Across Sectors & Brands
-            </h2>
-            
-            <p className="text-lg text-stone-600 mb-8 max-w-2xl leading-relaxed">
-              We specialize in delivering comprehensive business consultancy, innovative marketing strategies, 
-              precise accounting solutions, and cutting-edge innovation services that drive measurable growth 
-              and sustainable success for businesses across diverse industries.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4">
-              <a 
-                href="#contact"
-                className="bg-blue-900 text-white px-8 py-4 rounded-full hover:bg-blue-800 transition-colors font-medium text-center"
-              >
-                Get Started Today
-              </a>
-              <a 
-                href="#about"
-                className="border-2 border-amber-500 text-amber-600 px-8 py-4 rounded-full hover:bg-amber-50 transition-colors font-medium text-center"
-              >
-                Learn More
-              </a>
+      <header className="relative bg-gradient-to-br from-stone-100 to-stone-50 min-h-screen pt-20">
+        {/* Hero Section */}
+        <div className="relative flex items-center min-h-screen">
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
+            style={{
+              backgroundImage: `url('https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1')`
+            }}
+          />
+          
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div className="max-w-3xl">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6">
+                <span className="gradient-text">Top-notch</span>
+                <br />
+                <span className="text-stone-800">business services</span>
+              </h1>
+              
+              <h2 className="text-xl md:text-2xl text-amber-600 font-semibold mb-6">
+                Your Partner in Growth Across Sectors & Brands
+              </h2>
+              
+              <p className="text-lg text-stone-600 mb-8 max-w-2xl leading-relaxed">
+                We specialize in delivering comprehensive business consultancy, innovative marketing strategies, 
+                precise accounting solutions, and cutting-edge innovation services that drive measurable growth 
+                and sustainable success for businesses across diverse industries.
+              </p>
+              
+              <div className="flex flex-col sm:flex-row gap-4">
+                <a 
+                  href="#contact"
+                  className="bg-blue-900 text-white px-8 py-4 rounded-full hover:bg-blue-800 transition-colors font-medium text-center"
+                >
+                  Get Started Today
+                </a>
+                <a 
+                  href="#about"
+                  className="border-2 border-amber-500 text-amber-600 px-8 py-4 rounded-full hover:bg-amber-50 transition-colors font-medium text-center"
+                >
+                  Learn More
+                </a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </header>
+      </header>
+    </React.Fragment>
   );
 }
